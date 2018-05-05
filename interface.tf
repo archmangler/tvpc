@@ -1,3 +1,8 @@
+
+variable "stack_name" {
+  description = "Name of our application stack"
+}
+
 variable "region" {
   description = "The AWS region."
 }
@@ -28,18 +33,12 @@ variable "ami" {
   default = {
     "us-east-1" = "ami-f652979b"
     "us-west-1" = "ami-7c4b331c"
+    "eu-central-1" = "ami-5055cd3f"
+    "eu-west-1"    = "ami-1b791862"
+    "us-west-2"   = "ami-32e7464a"
   }
 
   description = "The AMIs to use for web and app instances."
-}
-
-variable "instance_type" {
-  default     = "t2.micro"
-  description = "The instance type to launch "
-}
-
-variable "vpc_id" {
-  description = "The VPC ID to launch in"
 }
 
 variable "bastion_instance_type" {
@@ -51,6 +50,9 @@ variable "bastion_ami" {
   default = {
     "us-east-1" = "ami-f652979b"
     "us-west-1" = "ami-7c4b331c"
+    "eu-central-1" = "ami-5055cd3f"
+    "eu-west-1"    = "ami-1b791862"
+    "us-west-2"   = "ami-32e7464a"
   }
 
   description = "The bastion host AMIs."
@@ -87,7 +89,7 @@ output "bastion_host_ip" {
   value = "${aws_instance.bastion.public_ip}"
 }
 
-output "public_subnet_ids" {
+output "public_subnet_id" {
   value = "${aws_subnet.public.*.id}"
 }
 
