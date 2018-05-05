@@ -18,6 +18,8 @@ module "vpc" {
 ```
 
 See `interface.tf` for additional configurable variables.
+NOTE: interfaces.tf is so names because this is the module’s API, 
+the "interface" to the module.
 
 ## License
 
