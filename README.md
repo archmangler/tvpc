@@ -1,6 +1,6 @@
 # AWS VPC module for Terraform
 
-A lightweight VPC module for Terraform.
+A lightweight VPC module for Terraform. For a far more featureful (but complex) module, get the Terraform Community VPC module.
 
 ## Usage
 
