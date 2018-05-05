@@ -6,7 +6,7 @@ A lightweight VPC module for Terraform.
 
 ```hcl
 module "vpc" {
-  source = "git::https://github.com:archmangler/aws-vpc.git"
+  source = "git::https://github.com:archmangler/aws-vpc.git?ref=f5a02ef"
 
   environment = "vpc_name"
   key_name = "osadmin"
