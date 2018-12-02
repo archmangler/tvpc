@@ -90,52 +90,8 @@ resource "aws_eip" "environment" {
 
 resource "aws_nat_gateway" "environment" {
   count = "${length(var.public_subnets)}"
-
   allocation_id = "${aws_eip.environment.*.id[count.index]}"
   subnet_id     = "${aws_subnet.public.*.id[count.index]}"
+  depends_on = ["aws_internet_gateway.environment"]
 }
 
-resource "aws_security_group" "bastion" {
-  vpc_id      = "${aws_vpc.environment.id}"
-  name        = "${var.environment}-bastion-host"
-  description = "Allow SSH to bastion host"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 8
-    to_port     = 0
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags {
-    Name = "${var.environment}-bastion-sg"
-  }
-}
-
-resource "aws_instance" "bastion" {
-  ami                         = "${lookup(var.bastion_ami, var.region)}"
-  instance_type               = "${var.bastion_instance_type}"
-  key_name                    = "${var.key_name}"
-  monitoring                  = true
-  vpc_security_group_ids      = ["${aws_security_group.bastion.id}"]
-  subnet_id                   = "${aws_subnet.public.*.id[0]}"
-  associate_public_ip_address = true
-
-  tags {
-    Name = "${var.environment}-bastion"
-  }
-}

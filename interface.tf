@@ -81,15 +81,15 @@ output "vpc_cidr" {
   value = "${aws_vpc.environment.cidr_block}"
 }
 
-output "bastion_host_dns" {
-  value = "${aws_instance.bastion.public_dns}"
-}
+#output "bastion_host_dns" {
+#  value = "${aws_instance.bastion.public_dns}"
+#}
 
-output "bastion_host_ip" {
-  value = "${aws_instance.bastion.public_ip}"
-}
+#output "bastion_host_ip" {
+#  value = "${aws_instance.bastion.public_ip}"
+#}
 
-output "public_subnet_id" {
+output "public_subnet_ids" {
   value = "${aws_subnet.public.*.id}"
 }
 
